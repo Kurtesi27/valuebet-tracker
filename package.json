@@ -4,18 +4,19 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "lint": "eslint",
+    "postinstall": "prisma generate",
     "test:engine": "tsx scripts/test-engine.ts",
     "test:bankroll-api": "tsx scripts/test-bankroll-api.ts",
     "test:bankroll-import": "tsx scripts/test-bankroll-import.ts",
     "fix:bankroll-2024-dates": "tsx scripts/fix-bankroll-2024-dates.ts",
-    "reimport:bankroll": "tsx scripts/reimport-bankroll-workbook.ts",
-    "postinstall": "prisma skills sync || exit 0"
+    "reimport:bankroll": "tsx scripts/reimport-bankroll-workbook.ts"
   },
   "dependencies": {
     "@google/genai": "^2.30.0",
+    "@prisma/client": "^5.22.0",
     "axios": "^1.20.0",
     "next": "16.4.1",
     "playwright": "^1.64.1",
@@ -24,7 +25,6 @@
     "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
   },
   "devDependencies": {
-    "@prisma/client": "^5.22.0",
     "@tailwindcss/turbopack": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
