@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import {
 	calculateConsensusFairProbabilities,
@@ -440,6 +441,12 @@ export default function Home() {
 							)}
 							{isSyncing ? "A sincronizar..." : "Sincronizar Odds Reais"}
 						</button>
+						<Link
+							href="/bankroll"
+							className="inline-flex h-11 shrink-0 items-center justify-center rounded-md border border-white/25 px-4 text-sm font-semibold text-emerald-50 transition-colors hover:bg-white/10"
+						>
+							Banca &amp; Apostas
+						</Link>
 						{syncError && (
 							<p className="text-xs text-rose-200 sm:absolute sm:right-0 sm:top-full sm:z-10 sm:mt-2" role="alert">
 								{syncError}

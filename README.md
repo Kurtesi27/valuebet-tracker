@@ -144,6 +144,46 @@ A positive value indicates theoretical positive expected value under that probab
 
    Open the local URL printed by Next.js in your browser.
 
+### Bankroll tracker
+
+The bankroll dashboard is available at `/bankroll`. It uses the existing `BetLog`
+model while keeping tracker-only entries separate from bets associated with a match.
+The initial bankroll is €500, matching the reference bankroll already shown by the
+ValueBet dashboard. ROI is net profit divided by total stake.
+
+After pulling this feature, update the local database and generated Prisma client:
+
+```bash
+npm install
+npx prisma db push
+npx prisma generate
+```
+
+This repository currently has no checked-in Prisma migration history, so `db push`
+is used to add the new nullable match relation and tracker fields without resetting
+the existing SQLite database. Stop the Next.js development server before running
+these Prisma commands on Windows so its loaded query-engine file does not prevent
+client regeneration; restart the server afterward. For spreadsheet imports, use `.xlsx` or `.csv` files
+with the date in column A, bet type in E, stake in F, and net result in G. The
+import endpoint accepts files up to 10 MB and reports skipped rows.
+
+Then start the app with `npm run dev` and open `http://localhost:3000/bankroll`.
+Run the import parser checks with `npm run test:bankroll-import`.
+
+### Correcting imported bet dates from 2024
+
+The importer normalizes dates from 2024 (including two-digit `24` dates) to 2026.
+To correct records already in the database, back up the database and run this
+one-time command from the project directory:
+
+```bash
+npm run fix:bankroll-2024-dates
+```
+
+The script updates only `BetLog` dates in 2024, preserving each date's month, day,
+and UTC time down to milliseconds. It can safely be run again; already corrected
+2026 records are left unchanged.
+
 ## License
 
 This project is licensed under the MIT License.
