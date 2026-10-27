@@ -150,6 +150,13 @@ The bankroll dashboard is available at `/bankroll`. It uses the existing `BetLog
 model while keeping tracker-only entries separate from bets associated with a match.
 The initial bankroll is €500, matching the reference bankroll already shown by the
 ValueBet dashboard. ROI is net profit divided by total stake.
+The year selector scopes dashboard metrics, the monthly chart, and history; the
+default year is 2026. The month filter and manual-entry date are kept within the
+selected year. The dashboard also summarizes ROI, P&L, win rate, and pending
+stakes by normalized bet type for the active year.
+Manual entries can be marked pending; pending stakes are shown separately and do
+not affect bankroll, profit, ROI, or settled win/loss totals until resolved. Bets
+can be resolved as Green, Red, or Void from the history table.
 
 After pulling this feature, update the local database and generated Prisma client:
 
